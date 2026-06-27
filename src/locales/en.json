@@ -1,0 +1,31 @@
+{
+  "nav": {
+    "home": "Home",
+    "shop": "Shop",
+    "pages": "Pages",
+    "blog": "Blog",
+    "contact": "Contact",
+    "about": "About Us",
+    "myAccount": "My Account",
+    "loginRegister": "Login | Register",
+    "cart": "Shopping Cart",
+    "wishlist": "Wishlist",
+    "compare": "Compare",
+    "checkout": "Checkout",
+    "faq": "FAQ",
+    "error404": "Error 404"
+  },
+  "footer": {
+    "quickLinks": "Quick Links",
+    "company": "Company",
+    "aboutCompany": "About Battery Mantra",
+    "storeInfo": "Store Information."
+  },
+  "common": {
+    "freeDelivery": "Free delivery on order over",
+    "callUs": "Call Us",
+    "search": "Search",
+    "addToCart": "Add to cart",
+    "shopNow": "Shop Now"
+  }
+}

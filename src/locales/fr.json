@@ -1,0 +1,31 @@
+{
+  "nav": {
+    "home": "Accueil",
+    "shop": "Boutique",
+    "pages": "Pages",
+    "blog": "Blog",
+    "contact": "Contact",
+    "about": "À Propos",
+    "myAccount": "Mon Compte",
+    "loginRegister": "Connexion | S'inscrire",
+    "cart": "Panier",
+    "wishlist": "Liste de Souhaits",
+    "compare": "Comparer",
+    "checkout": "Paiement",
+    "faq": "FAQ",
+    "error404": "Erreur 404"
+  },
+  "footer": {
+    "quickLinks": "Liens Rapides",
+    "company": "Entreprise",
+    "aboutCompany": "À propos de Battery Mantra",
+    "storeInfo": "Informations sur le magasin"
+  },
+  "common": {
+    "freeDelivery": "Livraison gratuite pour les commandes de plus de",
+    "callUs": "Appelez-nous",
+    "search": "Rechercher",
+    "addToCart": "Ajouter au panier",
+    "shopNow": "Acheter maintenant"
+  }
+}
