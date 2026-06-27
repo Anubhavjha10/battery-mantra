@@ -6,7 +6,7 @@ import { useLanguage } from '../context/LanguageContext';
 import { useCurrency } from '../context/CurrencyContext';
 import { useLocation } from '../context/LocationContext';
 import { useTranslation } from 'react-i18next';
-
+import { categoryService } from '../services/categoryService';
 
 const Header = ({ onOpenCart, onOpenMenu, onOpenSearch }) => {
   const [isSticky, setIsSticky] = useState(false);
@@ -24,6 +24,8 @@ const Header = ({ onOpenCart, onOpenMenu, onOpenSearch }) => {
     isDetecting 
   } = useLocation();
   const { t } = useTranslation();
+
+  const [categories, setCategories] = useState([]);
 
   const languageNames = {
     en: 'English',
@@ -43,6 +45,18 @@ const Header = ({ onOpenCart, onOpenMenu, onOpenSearch }) => {
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const catData = await categoryService.getCategories();
+        setCategories(catData || []);
+      } catch (err) {
+        console.error('Failed to load menu categories', err);
+      }
+    };
+    fetchCategories();
   }, []);
 
   return (
@@ -181,115 +195,31 @@ const Header = ({ onOpenCart, onOpenMenu, onOpenSearch }) => {
                        <li>
                          <Link to="/">{t('nav.home')}</Link>
                        </li>
-                       <li className="megamenu-holder">
+                       <li className="dropdown-holder">
                          <Link to="/shop">
                            {t('nav.shop')} <i className="pe-7s-angle-down"></i>
                          </Link>
-                         <ul className="drop-menu megamenu">
-                           <li>
-                             <span className="title">Shop Layout</span>
-                             <ul>
-                               <li>
-                                 <Link to="/shop">Shop Default</Link>
+                         <ul className="drop-menu">
+                           {categories.length > 0 ? (
+                             categories.map((cat) => (
+                               <li key={cat.id || cat.name}>
+                                 <Link to={`/category/${cat.slug || cat.name.toLowerCase()}`}>{cat.name}</Link>
                                </li>
-                               <li>
-                                 <Link to="/shop-grid-fullwidth">Shop Grid Fullwidth</Link>
-                               </li>
-                               <li>
-                                 <Link to="/shop-right-sidebar">Shop Right Sidebar</Link>
-                               </li>
-                               <li>
-                                 <Link to="/shop-list-fullwidth">Shop List Fullwidth</Link>
-                               </li>
-                               <li>
-                                 <Link to="/shop-list-left-sidebar">Shop List Left Sidebar</Link>
-                               </li>
-                               <li>
-                                 <Link to="/shop-list-right-sidebar">Shop List Right Sidebar</Link>
-                               </li>
-                             </ul>
-                           </li>
-                           <li>
-                             <span className="title">Product Style</span>
-                             <ul>
-                               <li>
-                                 <Link to="/single-product-variable">Single Product Variable</Link>
-                               </li>
-                               <li>
-                                 <Link to="/single-product-group">Single Product Group</Link>
-                               </li>
-                               <li>
-                                 <Link to="/single-product">Single Product Default</Link>
-                               </li>
-                               <li>
-                                 <Link to="/single-product-affiliate">Single Product Affiliate</Link>
-                               </li>
-                               <li>
-                                 <Link to="/single-product-sale">Single Product Sale</Link>
-                               </li>
-                               <li>
-                                 <Link to="/single-product-sticky">Single Product Sticky</Link>
-                               </li>
-                             </ul>
-                           </li>
-                           <li>
-                             <span className="title">Product Related</span>
-                             <ul>
-                               <li>
-                                 <Link to="/my-account">{t('nav.myAccount')}</Link>
-                               </li>
-                               <li>
-                                 <Link to="/login-register">{t('nav.loginRegister')}</Link>
-                               </li>
-                               <li>
-                                 <Link to="/cart">{t('nav.cart')}</Link>
-                               </li>
-                               <li>
-                                 <Link to="/wishlist">{t('nav.wishlist')}</Link>
-                               </li>
-                               <li>
-                                 <Link to="/compare">{t('nav.compare')}</Link>
-                               </li>
-                               <li>
-                                 <Link to="/checkout">{t('nav.checkout')}</Link>
-                               </li>
-                             </ul>
-                           </li>
-                           <li>
-                             <div className="banner">
-                               <img src={getAssetUrl('assets/images/megamenu/banner/1.jpg')} alt="Menu Banner" />
-                             </div>
-                           </li>
+                             ))
+                           ) : (
+                             <li>
+                               <span className="p-3 text-muted" style={{ fontSize: '13px', display: 'block' }}>
+                                 No categories available.
+                                </span>
+                             </li>
+                           )}
                          </ul>
                        </li>
-                       <li className="drop-holder">
-                         <a href="#" onClick={(e) => e.preventDefault()}>
-                           {t('nav.pages')} <i className="pe-7s-angle-down"></i>
-                         </a>
-                         <ul className="drop-menu">
-                           <li>
-                             <Link to="/about">{t('nav.about')}</Link>
-                           </li>
-                           <li>
-                             <Link to="/faq">{t('nav.faq')}</Link>
-                           </li>
-                           <li>
-                             <Link to="/404">{t('nav.error404')}</Link>
-                           </li>
-                         </ul>
+                       <li>
+                         <Link to="/about">{t('nav.about')}</Link>
                        </li>
-                       <li className="drop-holder">
-                         <Link to="/blog">
-                           {t('nav.blog')} <i className="pe-7s-angle-down"></i>
-                         </Link>
-                         <ul className="drop-menu">
-                           <li>
-                             <Link to="/blog-listview">Blog List View</Link>
-                           </li>
-                           <li>
-                             <Link to="/blog-detail">Blog Detail</Link>
-                           </li>
-                         </ul>
+                       <li>
+                         <Link to="/faq">{t('nav.faq')}</Link>
                        </li>
                        <li>
                          <Link to="/contact">{t('nav.contact')}</Link>

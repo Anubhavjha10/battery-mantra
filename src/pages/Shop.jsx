@@ -1,156 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getAssetUrl } from '../utils/helpers';
 import { useCart } from '../context/CartContext';
 import ProductCard from '../components/ProductCard';
-
-
-const productsData = [
-  {
-    id: 1,
-    name: 'Auto Clutch & Brake',
-    price: 120.0,
-    image: 'assets/images/product/medium-size/shop/1-1-290x350.jpg',
-    category: 'Accessories',
-    colors: ['Red', 'Gray'],
-    sizes: ['M', 'L'],
-    tags: ['Auto Parts', 'Car Parts'],
-    rating: 4,
-    desc: 'Integer commodo ligula in lectus porttitor tempus. Integer euismod, enim ut molestie dictum, nibh lectus scelerisque tellus, a dictum sem urna vel odio.'
-  },
-  {
-    id: 2,
-    name: 'Fuel Injector',
-    price: 130.0,
-    image: 'assets/images/product/medium-size/shop/1-2-290x350.jpg',
-    category: 'Computer',
-    colors: ['Light Black', 'Gray'],
-    sizes: ['L', 'XL'],
-    tags: ['Car Parts', 'Car'],
-    rating: 5,
-    desc: 'Integer commodo ligula in lectus porttitor tempus. Integer euismod, enim ut molestie dictum, nibh lectus scelerisque tellus, a dictum sem urna vel odio.'
-  },
-  {
-    id: 3,
-    name: 'A/C Compressor',
-    price: 150.0,
-    image: 'assets/images/product/medium-size/shop/1-3-290x350.jpg',
-    category: 'Electronics',
-    colors: ['Dark Blue'],
-    sizes: ['XL', 'XXL'],
-    tags: ['Automobil Parts', 'Auto Parts'],
-    rating: 4,
-    desc: 'Integer commodo ligula in lectus porttitor tempus. Integer euismod, enim ut molestie dictum, nibh lectus scelerisque tellus, a dictum sem urna vel odio.'
-  },
-  {
-    id: 4,
-    name: 'Shock Absorbers',
-    price: 180.0,
-    image: 'assets/images/product/medium-size/shop/1-4-290x350.jpg',
-    category: 'Frame Sunglasses',
-    colors: ['Red', 'Light Black'],
-    sizes: ['M', 'XXL'],
-    tags: ['Car', 'Cat Parts'],
-    rating: 4,
-    desc: 'Integer commodo ligula in lectus porttitor tempus. Integer euismod, enim ut molestie dictum, nibh lectus scelerisque tellus, a dictum sem urna vel odio.'
-  },
-  {
-    id: 5,
-    name: 'Catalytic Converter',
-    price: 200.0,
-    image: 'assets/images/product/medium-size/shop/1-5-290x350.jpg',
-    category: 'Furniture',
-    colors: ['Light Black', 'Gray'],
-    sizes: ['L'],
-    tags: ['Auto Parts', 'Cat Parts'],
-    rating: 5,
-    desc: 'Integer commodo ligula in lectus porttitor tempus. Integer euismod, enim ut molestie dictum, nibh lectus scelerisque tellus, a dictum sem urna vel odio.'
-  },
-  {
-    id: 6,
-    name: 'Tire Pressure Gauge',
-    price: 220.0,
-    image: 'assets/images/product/medium-size/shop/1-6-290x350.jpg',
-    category: 'Genuine Leather',
-    colors: ['Gray'],
-    sizes: ['M', 'XL'],
-    tags: ['Car Parts'],
-    rating: 3,
-    desc: 'Integer commodo ligula in lectus porttitor tempus. Integer euismod, enim ut molestie dictum, nibh lectus scelerisque tellus, a dictum sem urna vel odio.'
-  },
-  {
-    id: 7,
-    name: 'Power Steering Fluid',
-    price: 240.0,
-    image: 'assets/images/product/medium-size/shop/1-7-290x350.jpg',
-    category: 'Accessories',
-    colors: ['Dark Blue'],
-    sizes: ['XXL'],
-    tags: ['Auto Parts'],
-    rating: 4,
-    desc: 'Integer commodo ligula in lectus porttitor tempus. Integer euismod, enim ut molestie dictum, nibh lectus scelerisque tellus, a dictum sem urna vel odio.'
-  },
-  {
-    id: 8,
-    name: 'Transmission',
-    price: 280.0,
-    image: 'assets/images/product/medium-size/shop/1-8-290x350.jpg',
-    category: 'Computer',
-    colors: ['Red'],
-    sizes: ['L'],
-    tags: ['Car Parts', 'Car'],
-    rating: 4,
-    desc: 'Integer commodo ligula in lectus porttitor tempus. Integer euismod, enim ut molestie dictum, nibh lectus scelerisque tellus, a dictum sem urna vel odio.'
-  },
-  {
-    id: 9,
-    name: 'Spark Plug',
-    price: 215.0,
-    image: 'assets/images/product/medium-size/shop/1-9-290x350.jpg',
-    category: 'Electronics',
-    colors: ['Gray'],
-    sizes: ['M'],
-    tags: ['Auto Parts'],
-    rating: 4,
-    desc: 'Integer commodo ligula in lectus porttitor tempus. Integer euismod, enim ut molestie dictum, nibh lectus scelerisque tellus, a dictum sem urna vel odio.'
-  },
-  {
-    id: 10,
-    name: 'Spare Tire',
-    price: 190.0,
-    image: 'assets/images/product/medium-size/shop/1-10-290x350.jpg',
-    category: 'Genuine Leather',
-    colors: ['Light Black'],
-    sizes: ['XL'],
-    tags: ['Car Parts', 'Cat Parts'],
-    rating: 5,
-    desc: 'Integer commodo ligula in lectus porttitor tempus. Integer euismod, enim ut molestie dictum, nibh lectus scelerisque tellus, a dictum sem urna vel odio.'
-  },
-  {
-    id: 11,
-    name: 'Engine Fan',
-    price: 145.0,
-    image: 'assets/images/product/medium-size/shop/1-11-290x350.jpg',
-    category: 'Accessories',
-    colors: ['Red', 'Dark Blue'],
-    sizes: ['M', 'XXL'],
-    tags: ['Automobil Parts'],
-    rating: 4,
-    desc: 'Integer commodo ligula in lectus porttitor tempus. Integer euismod, enim ut molestie dictum, nibh lectus scelerisque tellus, a dictum sem urna vel odio.'
-  },
-  {
-    id: 12,
-    name: 'Car Brakes',
-    price: 80.0,
-    image: 'assets/images/product/medium-size/shop/1-12-290x350.jpg',
-    category: 'Electronics',
-    colors: ['Gray'],
-    sizes: ['L'],
-    tags: ['Auto Parts', 'Car'],
-    rating: 3,
-    desc: 'Integer commodo ligula in lectus porttitor tempus. Integer euismod, enim ut molestie dictum, nibh lectus scelerisque tellus, a dictum sem urna vel odio.'
-  }
-];
+import EmptyState from '../components/EmptyState';
+import LoadingSkeleton from '../components/LoadingSkeleton';
+import { productService } from '../services/productService';
+import { categoryService } from '../services/categoryService';
 
 const Shop = ({ layout = 'default' }) => {
   const { addToCart } = useCart();
@@ -165,6 +21,29 @@ const Shop = ({ layout = 'default' }) => {
   const [selectedSizes, setSelectedSizes] = useState([]);
   const [priceRange, setPriceRange] = useState(350);
   const [sortOption, setSortOption] = useState('default');
+
+  const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadShopData = async () => {
+      setLoading(true);
+      try {
+        const [prodData, catData] = await Promise.all([
+          productService.getProducts(),
+          categoryService.getCategories()
+        ]);
+        setProducts(prodData || []);
+        setCategories(catData || []);
+      } catch (err) {
+        console.error('Failed to load shop page data', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadShopData();
+  }, []);
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
@@ -183,16 +62,18 @@ const Shop = ({ layout = 'default' }) => {
   };
 
   // Filter products
-  const filteredProducts = productsData.filter((product) => {
+  const filteredProducts = products.filter((product) => {
     const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesCategory = selectedCategory ? product.category === selectedCategory : true;
     const matchesPrice = product.price <= priceRange;
     const matchesColors =
       selectedColors.length > 0
-        ? product.colors.some((c) => selectedColors.includes(c))
+        ? product.colors && product.colors.some((c) => selectedColors.includes(c))
         : true;
     const matchesSizes =
-      selectedSizes.length > 0 ? product.sizes.some((s) => selectedSizes.includes(s)) : true;
+      selectedSizes.length > 0
+        ? product.sizes && product.sizes.some((s) => selectedSizes.includes(s))
+        : true;
 
     return matchesSearch && matchesCategory && matchesPrice && matchesColors && matchesSizes;
   });
@@ -234,30 +115,27 @@ const Shop = ({ layout = 'default' }) => {
                 className={`btn btn-link p-0 text-start w-100 border-0 ${!selectedCategory ? 'text-primary' : 'text-charcoal'}`}
                 onClick={() => setSelectedCategory('')}
               >
-                All Categories <span>({productsData.length})</span>
+                All Categories <span>({products.length})</span>
               </button>
             </li>
-            {[
-              'Accessories',
-              'Computer',
-              'Covid-19',
-              'Electronics',
-              'Frame Sunglasses',
-              'Furniture',
-              'Genuine Leather'
-            ].map((cat) => {
-              const count = productsData.filter((p) => p.category === cat).length;
-              return (
-                <li key={cat}>
-                  <button
-                    className={`btn btn-link p-0 text-start w-100 border-0 ${selectedCategory === cat ? 'text-primary' : 'text-charcoal'}`}
-                    onClick={() => setSelectedCategory(cat)}
-                  >
-                    {cat} <span>({count})</span>
-                  </button>
-                </li>
-              );
-            })}
+            {categories.length > 0 ? (
+              categories.map((cat) => {
+                const categoryName = cat.name;
+                const count = products.filter((p) => p.category === categoryName).length;
+                return (
+                  <li key={categoryName}>
+                    <button
+                      className={`btn btn-link p-0 text-start w-100 border-0 ${selectedCategory === categoryName ? 'text-primary' : 'text-charcoal'}`}
+                      onClick={() => setSelectedCategory(categoryName)}
+                    >
+                      {categoryName} <span>({count})</span>
+                    </button>
+                  </li>
+                );
+              })
+            ) : (
+              <li className="text-muted p-2">No categories available.</li>
+            )}
           </ul>
         </div>
       </div>
@@ -400,7 +278,7 @@ const Shop = ({ layout = 'default' }) => {
                 <ul>
                   <li className="page-count">
                     <span>{sortedProducts.length}</span> Product Found of{' '}
-                    <span>{productsData.length}</span>
+                    <span>{products.length}</span>
                   </li>
                   <li className="product-view-wrap">
                     <ul className="nav" role="tablist">
@@ -442,36 +320,47 @@ const Shop = ({ layout = 'default' }) => {
 
               {/* Product Layout container */}
               <div className="tab-content text-charcoal pt-8">
-                {isGridView ? (
-                  // Grid View
-                  <div className="product-grid-view row">
-                    {sortedProducts.length > 0 ? (
-                      sortedProducts.map((product) => (
-                        <div key={product.id} className="col-xl-4 col-sm-6 mb-6">
-                          <ProductCard product={product} layout="grid" />
-                        </div>
-                      ))
-                    ) : (
-                      <div className="col-12 text-center py-5">
-                        <p className="lead">No products found matching your filter options.</p>
-                      </div>
-                    )}
-                  </div>
+                {loading ? (
+                  <LoadingSkeleton type="product" count={3} />
+                ) : products.length === 0 ? (
+                  <EmptyState
+                    title="No Products Available"
+                    message="Products will appear after backend integration."
+                  />
                 ) : (
-                  // List View
-                  <div className="product-list-view row">
-                    {sortedProducts.length > 0 ? (
-                      sortedProducts.map((product) => (
-                        <div key={product.id} className="col-12 mb-6">
-                          <ProductCard product={product} layout="list" />
-                        </div>
-                      ))
+                  <>
+                    {isGridView ? (
+                      // Grid View
+                      <div className="product-grid-view row">
+                        {sortedProducts.length > 0 ? (
+                          sortedProducts.map((product) => (
+                            <div key={product.id} className="col-xl-4 col-sm-6 mb-6">
+                              <ProductCard product={product} layout="grid" />
+                            </div>
+                          ))
+                        ) : (
+                          <div className="col-12 text-center py-5">
+                            <p className="lead">No products found matching your filter options.</p>
+                          </div>
+                        )}
+                      </div>
                     ) : (
-                      <div className="col-12 text-center py-5">
-                        <p className="lead">No products found matching your filter options.</p>
+                      // List View
+                      <div className="product-list-view row">
+                        {sortedProducts.length > 0 ? (
+                          sortedProducts.map((product) => (
+                            <div key={product.id} className="col-12 mb-6">
+                              <ProductCard product={product} layout="list" />
+                            </div>
+                          ))
+                        ) : (
+                          <div className="col-12 text-center py-5">
+                            <p className="lead">No products found matching your filter options.</p>
+                          </div>
+                        )}
                       </div>
                     )}
-                  </div>
+                  </>
                 )}
               </div>
             </div>

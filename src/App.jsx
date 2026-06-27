@@ -20,6 +20,24 @@ const Blog = lazy(() => import('./pages/Blog'));
 const BlogDetail = lazy(() => import('./pages/BlogDetail'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
+// New Page Components
+const Offers = lazy(() => import('./pages/Offers'));
+const StoreLocator = lazy(() => import('./pages/StoreLocator'));
+const TrackOrder = lazy(() => import('./pages/TrackOrder'));
+const Warranty = lazy(() => import('./pages/Warranty'));
+const BatteryInstallation = lazy(() => import('./pages/BatteryInstallation'));
+const BecomeDealer = lazy(() => import('./pages/BecomeDealer'));
+const CorporateOrders = lazy(() => import('./pages/CorporateOrders'));
+const SearchResults = lazy(() => import('./pages/SearchResults'));
+const CategoryListing = lazy(() => import('./pages/CategoryListing'));
+const BrandListing = lazy(() => import('./pages/BrandListing'));
+const VehicleListing = lazy(() => import('./pages/VehicleListing'));
+const OrderDetails = lazy(() => import('./pages/OrderDetails'));
+const OrderSuccess = lazy(() => import('./pages/OrderSuccess'));
+const OrderFailed = lazy(() => import('./pages/OrderFailed'));
+const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
+const TermsConditions = lazy(() => import('./pages/TermsConditions'));
+
 const PageLoader = () => (
   <div className="preloader-wrapper text-center py-5 my-5">
     <div className="spinner-border text-primary" role="status">
@@ -99,6 +117,27 @@ function App() {
             {/* Contact */}
             <Route path="contact" element={<Contact />} />
             <Route path="contact.html" element={<Navigate to="/contact" replace />} />
+
+            {/* Dynamic B2C / B2B Page Routes */}
+            <Route path="offers" element={<Offers />} />
+            <Route path="store-locator" element={<StoreLocator />} />
+            <Route path="track-order" element={<TrackOrder />} />
+            <Route path="warranty" element={<Warranty />} />
+            <Route path="battery-installation" element={<BatteryInstallation />} />
+            <Route path="become-a-dealer" element={<BecomeDealer />} />
+            <Route path="corporate-orders" element={<CorporateOrders />} />
+            <Route path="search" element={<SearchResults />} />
+            <Route path="category/:slug" element={<CategoryListing />} />
+            <Route path="brand/:slug" element={<BrandListing />} />
+            <Route path="vehicle/:brand" element={<VehicleListing />} />
+            <Route path="vehicle/:brand/:model" element={<VehicleListing />} />
+            <Route path="product/:slug" element={<SingleProduct style="default" />} />
+            <Route path="blog/:slug" element={<BlogDetail />} />
+            <Route path="order-details/:id" element={<OrderDetails />} />
+            <Route path="order-success" element={<OrderSuccess />} />
+            <Route path="order-failed" element={<OrderFailed />} />
+            <Route path="privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="terms-conditions" element={<TermsConditions />} />
 
             {/* 404 Route */}
             <Route path="404" element={<NotFound />} />

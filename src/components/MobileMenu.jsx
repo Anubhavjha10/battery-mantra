@@ -1,14 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getAssetUrl } from '../utils/helpers';
 import { useLanguage } from '../context/LanguageContext';
 import { useCurrency } from '../context/CurrencyContext';
 import { useLocation } from '../context/LocationContext';
 import { useTranslation } from 'react-i18next';
+import { categoryService } from '../services/categoryService';
 
 const MobileMenu = ({ isOpen, onClose }) => {
   // States for accordion submenus
   const [expandedMenus, setExpandedMenus] = useState({});
+  const [categories, setCategories] = useState([]);
 
   const { currentLanguage, changeLanguage } = useLanguage();
   const { selectedCurrency, changeCurrency, formatPrice } = useCurrency();
@@ -42,6 +44,18 @@ const MobileMenu = ({ isOpen, onClose }) => {
   const handleLinkClick = () => {
     onClose();
   };
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const catData = await categoryService.getCategories();
+        setCategories(catData || []);
+      } catch (err) {
+        console.error('Failed to load menu categories', err);
+      }
+    };
+    fetchCategories();
+  }, []);
 
   return (
     <>
@@ -188,13 +202,6 @@ const MobileMenu = ({ isOpen, onClose }) => {
                     </Link>
                   </li>
 
-                  {/* About */}
-                  <li>
-                    <Link to="/about" onClick={handleLinkClick}>
-                      <span className="mm-text">{t('nav.about')}</span>
-                    </Link>
-                  </li>
-
                   {/* Shop */}
                   <li className={`menu-item-has-children ${expandedMenus.shop ? 'menu-open' : ''}`}>
                     <a href="#" onClick={(e) => toggleSubmenu('shop', e)}>
@@ -203,139 +210,34 @@ const MobileMenu = ({ isOpen, onClose }) => {
                       </span>
                     </a>
                     <ul className="sub-menu" style={{ display: expandedMenus.shop ? 'block' : 'none' }}>
-                      {/* Shop Layout */}
-                      <li className={`menu-item-has-children ${expandedMenus.shopLayout ? 'menu-open' : ''}`}>
-                        <a href="#" onClick={(e) => toggleSubmenu('shopLayout', e)}>
-                          <span className="mm-text">
-                            Shop Layout <i className="pe-7s-angle-down"></i>
-                          </span>
-                        </a>
-                        <ul className="sub-menu" style={{ display: expandedMenus.shopLayout ? 'block' : 'none' }}>
-                          <li>
-                            <Link to="/shop" onClick={handleLinkClick}>Shop Default</Link>
+                      {categories.length > 0 ? (
+                        categories.map((cat) => (
+                          <li key={cat.id || cat.name}>
+                            <Link to={`/category/${cat.slug || cat.name.toLowerCase()}`} onClick={handleLinkClick}>
+                              {cat.name}
+                            </Link>
                           </li>
-                          <li>
-                            <Link to="/shop-grid-fullwidth" onClick={handleLinkClick}>Shop Grid Fullwidth</Link>
-                          </li>
-                          <li>
-                            <Link to="/shop-right-sidebar" onClick={handleLinkClick}>Shop Right Sidebar</Link>
-                          </li>
-                          <li>
-                            <Link to="/shop-list-fullwidth" onClick={handleLinkClick}>Shop List Fullwidth</Link>
-                          </li>
-                          <li>
-                            <Link to="/shop-list-left-sidebar" onClick={handleLinkClick}>Shop List Left Sidebar</Link>
-                          </li>
-                          <li>
-                            <Link to="/shop-list-right-sidebar" onClick={handleLinkClick}>Shop List Right Sidebar</Link>
-                          </li>
-                        </ul>
-                      </li>
-
-                      {/* Product Style */}
-                      <li className={`menu-item-has-children ${expandedMenus.productStyle ? 'menu-open' : ''}`}>
-                        <a href="#" onClick={(e) => toggleSubmenu('productStyle', e)}>
-                          <span className="mm-text">
-                            Product Style <i className="pe-7s-angle-down"></i>
-                          </span>
-                        </a>
-                        <ul className="sub-menu" style={{ display: expandedMenus.productStyle ? 'block' : 'none' }}>
-                          <li>
-                            <Link to="/single-product" onClick={handleLinkClick}>Single Product Default</Link>
-                          </li>
-                          <li>
-                            <Link to="/single-product-group" onClick={handleLinkClick}>Single Product Group</Link>
-                          </li>
-                          <li>
-                            <Link to="/single-product-variable" onClick={handleLinkClick}>Single Product Variable</Link>
-                          </li>
-                          <li>
-                            <Link to="/single-product-sale" onClick={handleLinkClick}>Single Product Sale</Link>
-                          </li>
-                          <li>
-                            <Link to="/single-product-sticky" onClick={handleLinkClick}>Single Product Sticky</Link>
-                          </li>
-                          <li>
-                            <Link to="/single-product-affiliate" onClick={handleLinkClick}>Single Product Affiliate</Link>
-                          </li>
-                        </ul>
-                      </li>
-
-                      {/* Product Related */}
-                      <li className={`menu-item-has-children ${expandedMenus.productRelated ? 'menu-open' : ''}`}>
-                        <a href="#" onClick={(e) => toggleSubmenu('productRelated', e)}>
-                          <span className="mm-text">
-                            Product Related <i className="pe-7s-angle-down"></i>
-                          </span>
-                        </a>
-                        <ul className="sub-menu" style={{ display: expandedMenus.productRelated ? 'block' : 'none' }}>
-                          <li>
-                            <Link to="/my-account" onClick={handleLinkClick}>{t('nav.myAccount')}</Link>
-                          </li>
-                          <li>
-                            <Link to="/login-register" onClick={handleLinkClick}>{t('nav.loginRegister')}</Link>
-                          </li>
-                          <li>
-                            <Link to="/cart" onClick={handleLinkClick}>{t('nav.cart')}</Link>
-                          </li>
-                          <li>
-                            <Link to="/wishlist" onClick={handleLinkClick}>{t('nav.wishlist')}</Link>
-                          </li>
-                          <li>
-                            <Link to="/compare" onClick={handleLinkClick}>{t('nav.compare')}</Link>
-                          </li>
-                          <li>
-                            <Link to="/checkout" onClick={handleLinkClick}>{t('nav.checkout')}</Link>
-                          </li>
-                        </ul>
-                      </li>
+                        ))
+                      ) : (
+                        <li>
+                          <span className="p-3 text-muted small d-block">No categories available.</span>
+                        </li>
+                      )}
                     </ul>
                   </li>
 
-                  {/* Pages */}
-                  <li className={`menu-item-has-children ${expandedMenus.pages ? 'menu-open' : ''}`}>
-                    <a href="#" onClick={(e) => toggleSubmenu('pages', e)}>
-                      <span className="mm-text">
-                        {t('nav.pages')} <i className="pe-7s-angle-down"></i>
-                      </span>
-                    </a>
-                    <ul className="sub-menu" style={{ display: expandedMenus.pages ? 'block' : 'none' }}>
-                      <li>
-                        <Link to="/faq" onClick={handleLinkClick}>{t('nav.faq')}</Link>
-                      </li>
-                      <li>
-                        <Link to="/404" onClick={handleLinkClick}>{t('nav.error404')}</Link>
-                      </li>
-                    </ul>
+                  {/* About */}
+                  <li>
+                    <Link to="/about" onClick={handleLinkClick}>
+                      <span className="mm-text">{t('nav.about')}</span>
+                    </Link>
                   </li>
 
-                  {/* Blog */}
-                  <li className={`menu-item-has-children ${expandedMenus.blog ? 'menu-open' : ''}`}>
-                    <a href="#" onClick={(e) => toggleSubmenu('blog', e)}>
-                      <span className="mm-text">
-                        {t('nav.blog')} <i className="pe-7s-angle-down"></i>
-                      </span>
-                    </a>
-                    <ul className="sub-menu" style={{ display: expandedMenus.blog ? 'block' : 'none' }}>
-                      <li className={`menu-item-has-children ${expandedMenus.blogHolder ? 'menu-open' : ''}`}>
-                        <a href="#" onClick={(e) => toggleSubmenu('blogHolder', e)}>
-                          <span className="mm-text">
-                            Blog Holder <i className="pe-7s-angle-down"></i>
-                          </span>
-                        </a>
-                        <ul className="sub-menu" style={{ display: expandedMenus.blogHolder ? 'block' : 'none' }}>
-                          <li>
-                            <Link to="/blog" onClick={handleLinkClick}>Blog Default</Link>
-                          </li>
-                          <li>
-                            <Link to="/blog-listview" onClick={handleLinkClick}>Blog List View</Link>
-                          </li>
-                          <li>
-                            <Link to="/blog-detail" onClick={handleLinkClick}>Blog Detail</Link>
-                          </li>
-                        </ul>
-                      </li>
-                    </ul>
+                  {/* FAQ */}
+                  <li>
+                    <Link to="/faq" onClick={handleLinkClick}>
+                      <span className="mm-text">{t('nav.faq')}</span>
+                    </Link>
                   </li>
 
                   {/* Contact */}

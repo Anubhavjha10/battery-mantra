@@ -5,14 +5,14 @@
     "pages": "Pages",
     "blog": "Blog",
     "contact": "Contact",
-    "about": "About Us",
+    "about": "About us",
     "myAccount": "My Account",
     "loginRegister": "Login | Register",
     "cart": "Shopping Cart",
     "wishlist": "Wishlist",
     "compare": "Compare",
     "checkout": "Checkout",
-    "faq": "FAQ",
+    "faq": "FAQs",
     "error404": "Error 404"
   },
   "footer": {
