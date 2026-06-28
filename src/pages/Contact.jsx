@@ -60,7 +60,9 @@ const Contact = () => {
                 </div>
                 <div className="shipping-content">
                   <h2 className="title">Phone/Fax</h2>
-                  <p className="short-desc mb-0">0123456789</p>
+                  <p className="short-desc mb-0">
+                    <a href="tel:09200920051" className="text-dark">09200920051</a>
+                  </p>
                 </div>
               </div>
             </div>
@@ -71,7 +73,9 @@ const Contact = () => {
                 </div>
                 <div className="shipping-content">
                   <h2 className="title">Email/Web</h2>
-                  <p className="short-desc mb-0">info@batterymantra.com</p>
+                  <p className="short-desc mb-0">
+                    <a href="mailto:info@batterymantra.com" className="text-dark">info@batterymantra.com</a>
+                  </p>
                 </div>
               </div>
             </div>
@@ -82,7 +86,7 @@ const Contact = () => {
                 </div>
                 <div className="shipping-content">
                   <h2 className="title">Address:</h2>
-                  <p className="short-desc mb-0">Your address goes here</p>
+                  <p className="short-desc mb-0">Noida, Uttar Pradesh, India</p>
                 </div>
               </div>
             </div>

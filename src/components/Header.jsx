@@ -13,15 +13,15 @@ const Header = ({ onOpenCart, onOpenMenu, onOpenSearch }) => {
   const { cartCount } = useCart();
   const { currentLanguage, changeLanguage } = useLanguage();
   const { selectedCurrency, changeCurrency, formatPrice } = useCurrency();
-  const { 
-    selectedState, 
-    selectedCity, 
-    selectState, 
-    selectCity, 
-    availableStates, 
-    availableCities, 
-    detectLocation, 
-    isDetecting 
+  const {
+    selectedState,
+    selectedCity,
+    selectState,
+    selectCity,
+    availableStates,
+    availableCities,
+    detectLocation,
+    isDetecting
   } = useLocation();
   const { t } = useTranslation();
 
@@ -122,9 +122,9 @@ const Header = ({ onOpenCart, onOpenMenu, onOpenSearch }) => {
                     <div className="dropdown-menu p-3" aria-labelledby="locationButton" style={{ minWidth: '280px', color: '#666', zIndex: 9999 }}>
                       <div className="mb-2">
                         <label className="form-label small fw-bold">State / UT</label>
-                        <select 
-                          className="form-select form-select-sm" 
-                          value={selectedState} 
+                        <select
+                          className="form-select form-select-sm"
+                          value={selectedState}
                           onChange={(e) => selectState(e.target.value)}
                         >
                           <option value="">Select State</option>
@@ -136,9 +136,9 @@ const Header = ({ onOpenCart, onOpenMenu, onOpenSearch }) => {
                       {selectedState && (
                         <div className="mb-2">
                           <label className="form-label small fw-bold">District / City</label>
-                          <select 
-                            className="form-select form-select-sm" 
-                            value={selectedCity} 
+                          <select
+                            className="form-select form-select-sm"
+                            value={selectedCity}
                             onChange={(e) => selectCity(e.target.value)}
                           >
                             <option value="">Select City</option>
@@ -149,7 +149,7 @@ const Header = ({ onOpenCart, onOpenMenu, onOpenSearch }) => {
                         </div>
                       )}
                       <div className="mt-2 border-top pt-2 text-center">
-                        <button 
+                        <button
                           className="btn btn-sm btn-primary w-100 py-1 text-white"
                           style={{ fontSize: '12px' }}
                           onClick={(e) => { e.preventDefault(); detectLocation(); }}
@@ -161,16 +161,47 @@ const Header = ({ onOpenCart, onOpenMenu, onOpenSearch }) => {
                     </div>
                   </li>
                   <li>
-                    {t('common.callUs')} <a href="tel://3965410">3965410</a>
+                    {t('common.callUs')} <a href="tel:09200920051">09200920051</a>
                   </li>
                 </ul>
               </div>
             </div>
             <div className="col-4">
-              <div className="header-top-right text-matterhorn">
-                <p className="shipping mb-0">
-                  {t('common.freeDelivery')} <span>{formatPrice(200)}</span>
-                </p>
+              <div className="header-top-right text-end">
+                <div className="d-inline-flex gap-3 align-items-center">
+                  <Link
+                    to="/request-callback"
+                    className="btn btn-sm text-uppercase font-weight-bold text-white px-3 py-1"
+                    style={{
+                      fontSize: '11px',
+                      backgroundColor: '#e62e2e',
+                      border: '1px solid #e62e2e',
+                      borderRadius: '4px',
+                      transition: 'all 0.3s ease',
+                      letterSpacing: '0.5px'
+                    }}
+                    onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#fff'; e.currentTarget.style.color = '#e62e2e'; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = '#e62e2e'; e.currentTarget.style.color = '#fff'; }}
+                  >
+                    Enquiry Now
+                  </Link>
+                  <Link
+                    to="/track-order"
+                    className="btn btn-sm text-uppercase font-weight-bold text-white px-3 py-1"
+                    style={{
+                      fontSize: '11px',
+                      backgroundColor: '#333',
+                      border: '1px solid #333',
+                      borderRadius: '4px',
+                      transition: 'all 0.3s ease',
+                      letterSpacing: '0.5px'
+                    }}
+                    onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#fff'; e.currentTarget.style.color = '#333'; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = '#333'; e.currentTarget.style.color = '#fff'; }}
+                  >
+                    Track Order
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
@@ -187,88 +218,73 @@ const Header = ({ onOpenCart, onOpenMenu, onOpenSearch }) => {
                 <Link to="/" className="header-logo">
                   <img src={getAssetUrl('assets/images/logo/dark.png')} alt="Battery Mantra Logo" />
                 </Link>
- 
-                 {/* Main Navigation */}
-                 <div className="main-menu d-none d-lg-block">
-                   <nav className="main-nav">
-                     <ul>
-                       <li>
-                         <Link to="/">{t('nav.home')}</Link>
-                       </li>
-                       <li className="dropdown-holder">
-                         <Link to="/shop">
-                           {t('nav.shop')} <i className="pe-7s-angle-down"></i>
-                         </Link>
-                         <ul className="drop-menu">
-                           {categories.length > 0 ? (
-                             categories.map((cat) => (
-                               <li key={cat.id || cat.name}>
-                                 <Link to={`/category/${cat.slug || cat.name.toLowerCase()}`}>{cat.name}</Link>
-                               </li>
-                             ))
-                           ) : (
-                             <li>
-                               <span className="p-3 text-muted" style={{ fontSize: '13px', display: 'block' }}>
-                                 No categories available.
-                                </span>
-                             </li>
-                           )}
-                         </ul>
-                       </li>
-                       <li>
-                         <Link to="/about">{t('nav.about')}</Link>
-                       </li>
-                       <li>
-                         <Link to="/faq">{t('nav.faq')}</Link>
-                       </li>
-                       <li>
-                         <Link to="/contact">{t('nav.contact')}</Link>
-                       </li>
-                     </ul>
-                   </nav>
-                 </div>
+
+                {/* Main Navigation */}
+                <div className="main-menu d-none d-lg-block">
+                  <nav className="main-nav">
+                    <ul>
+                      <li>
+                        <Link to="/">{t('nav.home')}</Link>
+                      </li>
+                      <li className="dropdown-holder">
+                        <Link to="/shop">
+                          {t('nav.shop')} <i className="pe-7s-angle-down"></i>
+                        </Link>
+                        <ul className="drop-menu">
+                          {categories.length > 0 ? (
+                            categories.map((cat) => (
+                              <li key={cat.id || cat.name}>
+                                <Link to={`/category/${cat.slug || cat.name.toLowerCase()}`}>{cat.name}</Link>
+                              </li>
+                            ))
+                          ) : (
+                            <li>
+                              <span className="p-3 text-muted" style={{ fontSize: '13px', display: 'block' }}>
+                                No categories available.
+                              </span>
+                            </li>
+                          )}
+                        </ul>
+                      </li>
+                      <li>
+                        <Link to="/about">{t('nav.about')}</Link>
+                      </li>
+                      <li>
+                        <Link to="/faq">{t('nav.faq')}</Link>
+                      </li>
+                      <li>
+                        <Link to="/contact">{t('nav.contact')}</Link>
+                      </li>
+                    </ul>
+                  </nav>
+                </div>
 
                 {/* Header Actions */}
                 <div className="header-right">
                   <ul>
-                    <li className="dropdown d-none d-lg-block">
-                      <button
-                        className="btn btn-link dropdown-toggle ht-btn p-0"
-                        type="button"
-                        id="settingButton"
-                        data-bs-toggle="dropdown"
-                        aria-label="setting"
-                        aria-expanded="false"
-                      >
+                    <li className="d-none d-lg-block">
+                      <Link className="ht-btn p-0" to="/login-register" aria-label="Login or Register">
                         <i className="pe-7s-user"></i>
-                      </button>
-                      <ul className="dropdown-menu right-side" aria-labelledby="settingButton">
-                        <li>
-                          <Link className="dropdown-item" to="/my-account">{t('nav.myAccount')}</Link>
-                        </li>
-                        <li>
-                          <Link className="dropdown-item" to="/login-register">{t('nav.loginRegister')}</Link>
-                        </li>
-                      </ul>
+                      </Link>
                     </li>
                     <li>
-                      <a href="#" className="search-btn bt" onClick={(e) => { e.preventDefault(); onOpenSearch(); }}>
+                      <a href="#" className="search-btn bt" aria-label="Open Search" onClick={(e) => { e.preventDefault(); onOpenSearch(); }}>
                         <i className="pe-7s-search"></i>
                       </a>
                     </li>
                     <li className="d-none d-lg-block">
-                      <Link to="/wishlist">
+                      <Link to="/wishlist" aria-label="View Wishlist">
                         <i className="pe-7s-like"></i>
                       </Link>
                     </li>
                     <li className="minicart-wrap me-3 me-lg-0">
-                      <a href="#" className="minicart-btn toolbar-btn" onClick={(e) => { e.preventDefault(); onOpenCart(); }}>
+                      <a href="#" className="minicart-btn toolbar-btn" aria-label="Open Cart" onClick={(e) => { e.preventDefault(); onOpenCart(); }}>
                         <i className="pe-7s-shopbag"></i>
                         <span className="quantity">{cartCount}</span>
                       </a>
                     </li>
                     <li className="mobile-menu_wrap d-block d-lg-none">
-                      <a href="#" className="mobile-menu_btn toolbar-btn pl-0" onClick={(e) => { e.preventDefault(); onOpenMenu(); }}>
+                      <a href="#" className="mobile-menu_btn toolbar-btn pl-0" aria-label="Open Navigation Menu" onClick={(e) => { e.preventDefault(); onOpenMenu(); }}>
                         <i className="pe-7s-menu"></i>
                       </a>
                     </li>

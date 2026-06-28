@@ -165,24 +165,10 @@ const MobileMenu = ({ isOpen, onClose }) => {
                     </div>
                   </div>
                 </li>
-                <li className="dropdown dropup">
-                  <button
-                    className="btn btn-link dropdown-toggle ht-btn p-0"
-                    type="button"
-                    id="settingButtonTwo"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
+                <li>
+                  <Link to="/login-register" aria-label="Login or Register" onClick={handleLinkClick}>
                     <i className="pe-7s-users"></i>
-                  </button>
-                  <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="settingButtonTwo">
-                    <li>
-                      <Link className="dropdown-item" to="/my-account" onClick={handleLinkClick}>{t('nav.myAccount')}</Link>
-                    </li>
-                    <li>
-                      <Link className="dropdown-item" to="/login-register" onClick={handleLinkClick}>{t('nav.loginRegister')}</Link>
-                    </li>
-                  </ul>
+                  </Link>
                 </li>
                 <li>
                   <Link to="/wishlist" onClick={handleLinkClick}>

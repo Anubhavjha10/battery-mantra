@@ -38,6 +38,35 @@ const OrderFailed = lazy(() => import('./pages/OrderFailed'));
 const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
 const TermsConditions = lazy(() => import('./pages/TermsConditions'));
 
+// 27 Newly Requested Page Components
+const Profile = lazy(() => import('./pages/Profile'));
+const ChangePassword = lazy(() => import('./pages/ChangePassword'));
+const SavedAddresses = lazy(() => import('./pages/SavedAddresses'));
+const MyOrders = lazy(() => import('./pages/MyOrders'));
+const ForgotPassword = lazy(() => import('./pages/ForgotPassword'));
+const ResetPassword = lazy(() => import('./pages/ResetPassword'));
+const ShippingPolicy = lazy(() => import('./pages/ShippingPolicy'));
+const ReturnRefundPolicy = lazy(() => import('./pages/ReturnRefundPolicy'));
+const CancellationPolicy = lazy(() => import('./pages/CancellationPolicy'));
+const CookiePolicy = lazy(() => import('./pages/CookiePolicy'));
+const BatteryFinder = lazy(() => import('./pages/BatteryFinder'));
+const BuyingGuide = lazy(() => import('./pages/BuyingGuide'));
+const BatteryCare = lazy(() => import('./pages/BatteryCare'));
+const BatteryRecycling = lazy(() => import('./pages/BatteryRecycling'));
+const WarrantyClaim = lazy(() => import('./pages/WarrantyClaim'));
+const ServiceRequest = lazy(() => import('./pages/ServiceRequest'));
+const InstallationRequest = lazy(() => import('./pages/InstallationRequest'));
+const RequestCallback = lazy(() => import('./pages/RequestCallback'));
+const DeliveryAvailability = lazy(() => import('./pages/DeliveryAvailability'));
+const VehicleModelVariant = lazy(() => import('./pages/VehicleModelVariant'));
+const EmptyCart = lazy(() => import('./pages/EmptyCart'));
+const EmptyWishlist = lazy(() => import('./pages/EmptyWishlist'));
+const NoSearchResults = lazy(() => import('./pages/NoSearchResults'));
+const Page401 = lazy(() => import('./pages/Page401'));
+const Page403 = lazy(() => import('./pages/Page403'));
+const Page500 = lazy(() => import('./pages/Page500'));
+const Maintenance = lazy(() => import('./pages/Maintenance'));
+
 const PageLoader = () => (
   <div className="preloader-wrapper text-center py-5 my-5">
     <div className="spinner-border text-primary" role="status">
@@ -51,6 +80,10 @@ function App() {
     <Router>
       <Suspense fallback={<PageLoader />}>
         <Routes>
+          {/* Fullscreen standalone views */}
+          <Route path="/maintenance" element={<Maintenance />} />
+
+          {/* Standard Page Layout views */}
           <Route path="/" element={<MainLayout />}>
             {/* Home Pages */}
             <Route index element={<Home />} />
@@ -138,6 +171,34 @@ function App() {
             <Route path="order-failed" element={<OrderFailed />} />
             <Route path="privacy-policy" element={<PrivacyPolicy />} />
             <Route path="terms-conditions" element={<TermsConditions />} />
+
+            {/* 27 New Dynamic Routes */}
+            <Route path="profile" element={<Profile />} />
+            <Route path="change-password" element={<ChangePassword />} />
+            <Route path="saved-addresses" element={<SavedAddresses />} />
+            <Route path="my-orders" element={<MyOrders />} />
+            <Route path="forgot-password" element={<ForgotPassword />} />
+            <Route path="reset-password" element={<ResetPassword />} />
+            <Route path="shipping-policy" element={<ShippingPolicy />} />
+            <Route path="return-refund-policy" element={<ReturnRefundPolicy />} />
+            <Route path="cancellation-policy" element={<CancellationPolicy />} />
+            <Route path="cookie-policy" element={<CookiePolicy />} />
+            <Route path="battery-finder" element={<BatteryFinder />} />
+            <Route path="buying-guide" element={<BuyingGuide />} />
+            <Route path="battery-care" element={<BatteryCare />} />
+            <Route path="battery-recycling" element={<BatteryRecycling />} />
+            <Route path="warranty-claim" element={<WarrantyClaim />} />
+            <Route path="service-request" element={<ServiceRequest />} />
+            <Route path="installation-request" element={<InstallationRequest />} />
+            <Route path="request-callback" element={<RequestCallback />} />
+            <Route path="delivery-availability" element={<DeliveryAvailability />} />
+            <Route path="vehicle/:brand/:model/:variant" element={<VehicleModelVariant />} />
+            <Route path="empty-cart" element={<EmptyCart />} />
+            <Route path="empty-wishlist" element={<EmptyWishlist />} />
+            <Route path="no-search-results" element={<NoSearchResults />} />
+            <Route path="401" element={<Page401 />} />
+            <Route path="403" element={<Page403 />} />
+            <Route path="500" element={<Page500 />} />
 
             {/* 404 Route */}
             <Route path="404" element={<NotFound />} />

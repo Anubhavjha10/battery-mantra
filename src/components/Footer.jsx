@@ -47,7 +47,7 @@ const Footer = () => {
                 </div>
               </div>
             </div>
-            
+
             <div className="col-lg-2 col-md-4 col-sm-4 pt-8 pt-lg-0">
               <div className="widget-item">
                 <h3 className="widget-title mb-5">Quick Links</h3>
@@ -151,13 +151,13 @@ const Footer = () => {
               <div className="widget-contact-info pb-2">
                 <ul>
                   <li>
-                    2005 Stokes Isle Apartment. 896, Washington 10010, USA,
+                    Noida, Uttar Pradesh, India
                   </li>
                   <li>
-                    <a href="mailto://info@example.com">info@example.com</a>
+                    <a href="mailto:info@batterymantra.com">info@batterymantra.com</a>
                   </li>
                   <li>
-                    <a href="tel://+68-120034509">(+68) 120034509</a>
+                    <a href="tel:09200920051">09200920051</a>
                   </li>
                 </ul>
               </div>
@@ -170,16 +170,16 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      
+
       <div className="footer-bottom bg-midnight-express py-3">
         <div className="container">
           <div className="row">
             <div className="col-lg-12">
               <div className="copyright">
                 <span className="copyright-text">
-                  © 2022 Battery Mantra Made with <i className="fa fa-heart text-danger"></i> by{' '}
-                  <a href="https://themeforest.net/user/codecarnival/portfolio" rel="noopener" target="_blank">
-                    CodeCarnival
+                  © Battery Mantra | Developed by{' '}
+                  <a href="https://vabitdigifymedia.com" rel="noopener" target="_blank">
+                    Vabit Digify Media Pvt. Ltd.
                   </a>
                 </span>
               </div>

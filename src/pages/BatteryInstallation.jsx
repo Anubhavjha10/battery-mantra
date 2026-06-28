@@ -28,7 +28,7 @@ const BatteryInstallation = () => {
     if (!formData.address.trim()) newErrors.address = 'Installation address is required';
     if (!formData.preferredDate.trim()) newErrors.preferredDate = 'Installation date is required';
     if (!formData.preferredTimeSlot.trim()) newErrors.preferredTimeSlot = 'Preferred time slot is required';
-    
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -64,7 +64,7 @@ const BatteryInstallation = () => {
               <div className="p-5 border rounded bg-white shadow-sm">
                 <h3 className="mb-3">Schedule Installation Service</h3>
                 <p className="text-muted mb-4">Book a certified technician to deliver and fit your battery at your home or office. Free installation on new battery purchases.</p>
-                
+
                 {success && (
                   <div className="alert alert-success p-4 mb-4">
                     <h5 className="alert-heading font-weight-bold"><i className="fa fa-check-circle me-2"></i>Booking Confirmed!</h5>
@@ -194,7 +194,9 @@ const BatteryInstallation = () => {
                 <div className="border-top pt-4 mt-4">
                   <h5 className="font-weight-bold text-dark mb-2">Need Emergency Support?</h5>
                   <p className="text-muted" style={{ fontSize: '0.9rem' }}>If you are stranded on the road and need jumpstart or emergency service, call us directly:</p>
-                  <h3 className="text-primary font-weight-bold">+91 98765 43210</h3>
+                  <h3 className="text-primary font-weight-bold">
+                    <a href="tel:09200920051" className="text-primary text-decoration-none">09200920051</a>
+                  </h3>
                 </div>
               </div>
             </div>

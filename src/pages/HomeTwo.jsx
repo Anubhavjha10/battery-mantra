@@ -8,6 +8,7 @@ import { categoryService } from '../services/categoryService';
 import { brandService } from '../services/brandService';
 import { blogService } from '../services/blogService';
 import ProductCard from '../components/ProductCard';
+import SmartSearch from '../components/SmartSearch';
 
 // Import Swiper styles
 import 'swiper/css';
@@ -139,6 +140,9 @@ const HomeTwo = () => {
         </Swiper>
       </div>
       {/* Slider Area End Here */}
+
+      {/* Begin Smart Search Section */}
+      <SmartSearch />
 
       {/* Begin Product Area (Top Category) */}
       <div className="product-area section-space-top-100">

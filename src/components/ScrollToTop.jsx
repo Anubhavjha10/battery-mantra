@@ -36,7 +36,7 @@ const ScrollToTop = () => {
         transition: 'all 0.3s ease'
       }}
     >
-      <i class="fa fa-chevron-up"></i>
+      <i className="fa fa-chevron-up"></i>
     </a>
   );
 };
