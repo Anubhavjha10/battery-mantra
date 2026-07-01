@@ -1,1 +1,0 @@
-import{i as e}from"./index-MdZilMij.js";const a={getStates:async()=>(await new Promise(t=>setTimeout(t,200)),Object.keys(e)),getCitiesByState:async t=>(await new Promise(i=>setTimeout(i,250)),e[t]||[])};export{a as l};

@@ -1,1 +1,0 @@
-import{k as a}from"./index-MdZilMij.js";const o={getBrands:async()=>(await new Promise(r=>setTimeout(r,350)),a),getBrandBySlug:async r=>{await new Promise(n=>setTimeout(n,200));const t=a.find(n=>n.slug===r);if(!t)throw new Error("Brand not found");return t}};export{o as b};

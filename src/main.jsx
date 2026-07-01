@@ -7,16 +7,7 @@ import { CurrencyProvider } from './context/CurrencyContext.jsx';
 import { LocationProvider } from './context/LocationContext.jsx';
 import './utils/i18n.js';
 
-// Import CSS stylesheets to be bundled by Vite
-import '../assets/css/vendor/font-awesome.min.css';
-import '../assets/css/vendor/Pe-icon-7-stroke.css';
-import '../assets/css/plugins/animate.min.css';
-import '../assets/css/plugins/jquery-ui.min.css';
-import '../assets/css/plugins/swiper-bundle.min.css';
-import '../assets/css/plugins/nice-select.css';
-import '../assets/css/plugins/magnific-popup.min.css';
-import '../assets/css/plugins/ion.rangeSlider.min.css';
-import '../assets/css/style.css';
+// CSS stylesheets are now loaded via <link> tags in index.html
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

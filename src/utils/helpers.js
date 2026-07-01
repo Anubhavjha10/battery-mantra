@@ -1,4 +1,3 @@
-import logoFile from '../../logo.png';
 
 /**
  * Resolves local assets dynamically for Vite.
@@ -25,7 +24,7 @@ export const getAssetUrl = (path) => {
     cleanPath.includes('logo/logo.png') ||
     cleanPath === 'logo.png'
   ) {
-    return logoFile;
+    return '/assets/images/logo/logo.png';
   }
 
   // Resolve assets relative to the root of the project
